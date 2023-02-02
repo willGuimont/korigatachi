@@ -7,7 +7,7 @@ defmodule Korigatachi.State do
 
   def toggle(%State{positions: positions, current: current, captures: captures} = state, index) do
     at_index = Enum.at(positions, index)
-    replace = if at_index != nil, do: nil, else: current
+    replace = if at_index == current, do: nil, else: current
 
     new_positions = List.replace_at(positions, index, replace)
     %{state | positions: new_positions}
