@@ -4,8 +4,6 @@ Count the score of a Go game from a picture
 
 ## Run
 
-## Run
-
 Create database in Docker:
 
 ```shell
