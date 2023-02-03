@@ -3,7 +3,7 @@ defmodule Korigatachi.State do
 
   defstruct positions: Enum.map(1..81, fn _ -> nil end),
             current: :black,
-            captures: %{black: 4, white: 12}
+            captures: %{black: 0, white: 0}
 
   def change_capture(%State{captures: captures} = state, color, delta) do
     new_captures = Map.update(captures, color, 0, fn x -> max(0, x + delta) end)
