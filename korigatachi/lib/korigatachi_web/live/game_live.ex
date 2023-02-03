@@ -13,6 +13,16 @@ defmodule KorigatachiWeb.GameLive do
     {:ok, assign(socket, game: game, state: Game.state(game))}
   end
 
+  def handle_event("change_capture", %{"color" => color, "delta" => delta}, %{assigns: assigns} = socket) do
+    new_game = Game.change_capture(assigns.game, String.to_atom(color), String.to_integer(delta))
+    {:noreply, assign(socket, game: new_game, state: Game.state(new_game))}
+  end
+
+  def handle_event("change_current", %{"current" => current}, %{assigns: assigns} = socket) do
+    new_game = Game.change_current(assigns.game, String.to_atom(current))
+    {:noreply, assign(socket, game: new_game, state: Game.state(new_game))}
+  end
+
   def handle_event("toggle", %{"index" => index}, %{assigns: assigns} = socket) do
     new_game = Game.toggle(assigns.game, String.to_integer(index))
     {:noreply, assign(socket, game: new_game, state: Game.state(new_game))}

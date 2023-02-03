@@ -87,6 +87,24 @@ button {
     height: 20px;
 }
 
+.captures-edit {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+.captures-edit div {
+    padding: 1em calc(100% / 9);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1em calc(100% / 9);
+}
+
+.captures-edit p {
+    min-width: 3ch;
+}
+
 .history {
     text-align: center;
 }

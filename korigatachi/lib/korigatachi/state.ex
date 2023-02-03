@@ -3,7 +3,16 @@ defmodule Korigatachi.State do
 
   defstruct positions: Enum.map(1..81, fn _ -> nil end),
             current: :black,
-            captures: %{black: 0, white: 0}
+            captures: %{black: 4, white: 12}
+
+  def change_capture(%State{captures: captures} = state, color, delta) do
+    new_captures = Map.update(captures, color, 0, fn x -> max(0, x + delta) end)
+    %{state | captures: new_captures}
+  end
+
+  def change_current(%State{captures: captures} = state, current) do
+    %{state | current: current}
+  end
 
   def toggle(%State{positions: positions, current: current, captures: captures} = state, index) do
     at_index = Enum.at(positions, index)

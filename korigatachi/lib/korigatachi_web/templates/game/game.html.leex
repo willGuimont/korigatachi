@@ -1,3 +1,18 @@
+<h2>Captures</h2>
+<div class="captures-edit">
+    <div>
+        <button phx-click="change_capture" phx-value-color="black" phx-value-delta="-1">-</button>
+        <p><%= @state.captures.black%></p>
+        <button phx-click="change_capture" phx-value-color="black" phx-value-delta="1">+</button>
+    </div>
+    <div>
+        <button phx-click="change_capture" phx-value-color="white" phx-value-delta="-1">-</button>
+        <p><%= @state.captures.white%></p>
+        <button phx-click="change_capture" phx-value-color="white" phx-value-delta="1">+</button>
+    </div>
+</div>
+
+<!--
 <div class="captures">
     <div>
         <%= for _ <- 1..@state.captures.black, @state.captures.black > 0 do %>
@@ -10,9 +25,15 @@
         <% end %>
     </div>
 </div>
+!-->
 
-<div class="board <%= @state.current %>">
-    <%= for {value, index} <- Enum.with_index(@state.positions) do %>
+<h2>Board</h2>
+<div>
+    <button phx-click="change_current" phx-value-current="black">Black</button>
+    <button phx-click="change_current" phx-value-current="white">White</button>
+    <div class="board <%= @state.current %>">
+        <%= for {value, index} <- Enum.with_index(@state.positions) do %>
         <button phx-click="toggle" phx-value-index="<%= index %>" class="<%= value %>"></button>
-  <% end %>
+        <% end %>
+    </div>
 </div>
