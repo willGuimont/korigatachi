@@ -1,5 +1,26 @@
 <section class="phx-hero">
-  <h1>Home page</h1>
-  <p>TODO: make a home page</p>
+  <h1>Korigatachi</h1>
+  <p>Count the score of your Go games</p>
 </section>
 
+<section class="row">
+<article class="column">
+    <h2>Tools</h2>
+    <ul>
+        <li>
+            <%= link "Score counting", to: Routes.board_path(@conn,  KorigatachiWeb.GameLive) %>
+        </li>
+    </ul>
+</article>
+<article class="column">
+    <h2>Ressources</h2>
+    <ul>
+        <li>
+            <a href="https://online-go.com/">Online Go</a>
+        </li>
+        <li>
+            <a href="https://online-go.com/puzzle/2625">Exercises for Beginners by mark5000</a>
+        </li>
+    </ul>
+</article>
+</section>
