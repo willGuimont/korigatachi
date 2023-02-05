@@ -12,6 +12,7 @@ defmodule Korigatachi.Game do
       game
       |> Game.state()
       |> function.()
+
     %{game | history: [new_state | Enum.slice(history, index..-1)], index: 0}
   end
 
@@ -20,18 +21,25 @@ defmodule Korigatachi.Game do
       game
       |> Game.state()
       |> function.()
+
     %{game | history: [new_state | Enum.slice(history, (index + 1)..-1)], index: 0}
   end
 
-  def change_capture(%Game{history: history, index: index} = game, color, delta) do
+  def change_capture(game, color, delta) do
     update_state(game, fn g -> State.change_capture(g, color, delta) end)
   end
 
-  def change_current(%Game{history: history, index: index} = game, current) do
+  def change_current(game, current) do
     update_state(game, fn g -> State.change_current(g, current) end)
   end
 
-  def toggle(%Game{history: history, index: index} = game, position) do
+  def toggle(game, position) do
     update_state(game, fn g -> State.toggle(g, position) end)
+  end
+
+  def get_score(game) do
+    game
+    |> Game.state()
+    |> State.get_score()
   end
 end

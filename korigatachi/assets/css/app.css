@@ -107,6 +107,14 @@ button {
 
 .history {
     text-align: center;
+    flex-direction: row;
+    text-align: center;
+}
+
+.score {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 /* Alerts and form errors used by phx.new */

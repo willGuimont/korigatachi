@@ -20,7 +20,7 @@ defmodule Korigatachi.Application do
       # {Korigatachi.Worker, arg}
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
+    # See https://hexdocs.pm/elixir/Supervisor.htmL
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Korigatachi.Supervisor]
     Supervisor.start_link(children, opts)

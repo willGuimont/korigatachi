@@ -37,3 +37,10 @@
         <% end %>
     </div>
 </div>
+
+<h2>Score</h2>
+<button phx-click="update_score">Compute score</button>
+<div class="score">
+    <div>Black: <%= @score.black %></div>
+    <div>White: <%= @score.white %></div>
+</div>

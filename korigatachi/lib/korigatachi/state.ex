@@ -10,15 +10,19 @@ defmodule Korigatachi.State do
     %{state | captures: new_captures}
   end
 
-  def change_current(%State{captures: captures} = state, current) do
+  def change_current(state, current) do
     %{state | current: current}
   end
 
-  def toggle(%State{positions: positions, current: current, captures: captures} = state, index) do
+  def toggle(%State{positions: positions, current: current} = state, index) do
     at_index = Enum.at(positions, index)
     replace = if at_index == current, do: nil, else: current
 
     new_positions = List.replace_at(positions, index, replace)
     %{state | positions: new_positions}
+  end
+
+  def get_score(%State{positions: positions}) do
+    %{black: 0, white: 0}
   end
 end

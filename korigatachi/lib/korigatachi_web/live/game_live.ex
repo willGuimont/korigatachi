@@ -10,7 +10,7 @@ defmodule KorigatachiWeb.GameLive do
   @impl true
   def mount(_params, _session, socket) do
     game = %Game{}
-    {:ok, assign(socket, game: game, state: Game.state(game))}
+    {:ok, assign(socket, game: game, state: Game.state(game), score: %{black: 0, white: 0})}
   end
 
   def handle_event("change_capture", %{"color" => color, "delta" => delta}, %{assigns: assigns} = socket) do
@@ -26,5 +26,10 @@ defmodule KorigatachiWeb.GameLive do
   def handle_event("toggle", %{"index" => index}, %{assigns: assigns} = socket) do
     new_game = Game.toggle(assigns.game, String.to_integer(index))
     {:noreply, assign(socket, game: new_game, state: Game.state(new_game))}
+  end
+
+  def handle_event("update_score", _args, %{assigns: assigns} = socket) do
+    new_score = Game.get_score(assigns.game)
+    {:noreply, assign(socket, score: new_score)}
   end
 end
