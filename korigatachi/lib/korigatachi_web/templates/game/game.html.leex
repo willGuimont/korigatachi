@@ -1,10 +1,12 @@
 <h2>Captures</h2>
 <div class="captures-edit">
+    <p>Black<p>
     <div>
         <button phx-click="change_capture" phx-value-color="black" phx-value-delta="-1">-</button>
         <p><%= @state.captures.black%></p>
         <button phx-click="change_capture" phx-value-color="black" phx-value-delta="1">+</button>
     </div>
+    <p>White<p>
     <div>
         <button phx-click="change_capture" phx-value-color="white" phx-value-delta="-1">-</button>
         <p><%= @state.captures.white%></p>

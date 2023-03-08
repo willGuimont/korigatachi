@@ -22,18 +22,34 @@ defmodule Korigatachi.State do
     %{state | positions: new_positions}
   end
 
-  def get_score(%State{positions: positions}) do
-    cells = Enum.filter(0..80, fn k -> Enum.at(positions, k) == nil end)
-    IO.inspect(cells)
-    %{black: 0, white: 0}
+  def get_score(%State{positions: positions, captures: captures}) do
+    cells = 0..80 |> Enum.filter(fn k -> Enum.at(positions, k) == nil end) |> MapSet.new()
+    score = get_score_cell(positions, cells, captures)
+    score
   end
 
-  defp get_score_from(positions, i) do
+  defp get_score_cell(positions, cells, score) do
+    if MapSet.size(cells) == 0 do
+      score
+    else
+      {i, rest_to_visit} =
+        case MapSet.to_list(cells) do
+          [i] -> {i, []}
+          [i | rest] -> {i, rest}
+        end
+      {visited, visited_color} = flood_fill(positions, [i], MapSet.new([i]), MapSet.new())
 
-  end
+      num_visited = MapSet.size(visited)
 
-  defp flood_fill(positions, i) do
-    flood_fill(positions, [i], MapSet.new([i]), MapSet.new())
+      new_cells = cells |> MapSet.difference(visited)
+      %{black: black_score, white: white_score} = score
+      new_score = case MapSet.to_list(visited_color) do
+                    [:black] -> %{score | black: black_score + num_visited}
+                    [:white] -> %{score | white: white_score + num_visited}
+                    _ -> score
+                  end
+      get_score_cell(positions, new_cells, new_score)
+    end
   end
 
   defp flood_fill(positions, [], visited, visited_color) do
@@ -64,11 +80,17 @@ defmodule Korigatachi.State do
       |> Enum.map(fn {k, v} -> v end)
       |> Enum.into(MapSet.new())
 
-    flood_fill(positions, next_visit, MapSet.put(visited, i), MapSet.union(visited_color, new_color))
+    flood_fill(
+      positions,
+      next_visit,
+      MapSet.put(visited, i),
+      MapSet.union(visited_color, new_color)
+    )
   end
 
   defp neighbors_idx(i) do
     {x, y} = i_to_xy(i)
+
     [{-1, 0}, {1, 0}, {0, -1}, {0, 1}]
     |> Enum.map(fn {dx, dy} -> {x + dx, y + dy} end)
     |> Enum.filter(fn {xx, yy} -> xx >= 0 and xx <= 8 and yy >= 0 and yy <= 8 end)
