@@ -48,7 +48,8 @@ defmodule Korigatachi.State do
                     [:white] -> %{score | white: white_score + num_visited}
                     _ -> score
                   end
-      get_score_cell(positions, new_cells, new_score)
+      score_with_komi = %{new_score | white: new_score[:white] +  6.5}
+      get_score_cell(positions, new_cells, score_with_komi)
     end
   end
 
