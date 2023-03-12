@@ -2,20 +2,115 @@
 @import "./phoenix.css";
 
 body {
-    margin: auto;
-    max-width: 900px;
-    padding: 1em;
+}
+
+button {
+    border-radius: 10px;
+    background-color: #0b6c9f;
+}
+
+.game {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    column-gap: 1ch;
+}
+
+/* Settings */
+.settings {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 49%;
+    padding-top: 3em;
+}
+
+.settings h2 {
+    margin: 0;
+}
+
+.change-color-black.black {
+    background-color: #5c0166;
+    border-color: #5c0166;
+}
+
+.change-color-white.white {
+    background-color: #5c0166;
+    border-color: #5c0166;
+}
+
+.edit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.edit * {
+    margin: 0.25em;
+}
+
+.edit div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+}
+
+.edit div p {
+    width: 3ch;
+    text-align: center;
+}
+
+.edit div p:first-child {
+    width: auto;
+    font-weight: bold;
+    margin-left: 0;
+}
+
+.scores {
+}
+
+.scores button {
+    width: 100%;
+}
+
+.score {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.score div p {
+    margin: 0;
+    text-align: right;
+}
+
+.score div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 2ch;
+}
+
+.score div p {
+    min-width: 5ch;
+    max-width: 5ch;
+}
+
+.score p:first-child {
+    font-weight: bold;
+}
+
+/* Board  */
+.board-container {
+    flex-basis: 50%;
+    min-width: 350px;
 }
 
 .board {
     background: url(/images/grid.svg);
     padding-bottom: 100%;
-    width: 100%;
-    margin: 1em 0;
-}
-
-button {
-    font-size: 13px;
 }
 
 .board button {
@@ -27,6 +122,7 @@ button {
     padding: 0 0 calc(100% / 9) 0;
     width: calc(100% / 9);
     position: relative;
+    font-size: 13px;
 }
 
 .board button::after, .captures span {
@@ -66,55 +162,6 @@ button {
 
 .board button:focus {
     outline: none;
-}
-
-.captures {
-    padding: 1em calc(100% / 18);
-    display: flex;
-}
-
-.captures div {
-    flex-basis: 50%;
-}
-
-.captures div:last-child {
-    text-align: right;
-}
-
-.captures span {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-}
-
-.captures-edit {
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-}
-
-.captures-edit div {
-    padding: 1em calc(100% / 9);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1em calc(100% / 9);
-}
-
-.captures-edit p {
-    min-width: 3ch;
-}
-
-.history {
-    text-align: center;
-    flex-direction: row;
-    text-align: center;
-}
-
-.score {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 /* Alerts and form errors used by phx.new */

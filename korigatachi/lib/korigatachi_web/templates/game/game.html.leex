@@ -1,49 +1,70 @@
-<h2>Captures</h2>
-<div class="captures-edit">
-    <p>Black<p>
-    <div>
-        <button phx-click="change_capture" phx-value-color="black" phx-value-delta="-1">-</button>
-        <p><%= @state.captures.black%></p>
-        <button phx-click="change_capture" phx-value-color="black" phx-value-delta="1">+</button>
+<div class="game">
+    <div class="board-container">
+        <div>
+            <div class="board <%= @state.current %>">
+                <%= for {value, index} <- Enum.with_index(@state.positions) do %>
+                    <button phx-click="toggle" phx-value-index="<%= index %>" class="<%= value %>"></button>
+                <% end %>
+            </div>
+        </div>
     </div>
-    <p>White<p>
-    <div>
-        <button phx-click="change_capture" phx-value-color="white" phx-value-delta="-1">-</button>
-        <p><%= @state.captures.white%></p>
-        <button phx-click="change_capture" phx-value-color="white" phx-value-delta="1">+</button>
+    <div class="settings">
+        <h2>Color</h2>
+        <div>
+            <button class="change-color-black <%= @state.current %>" phx-click="change_current" phx-value-current="black">Black</button>
+            <button  class="change-color-white <%= @state.current %>" phx-click="change_current" phx-value-current="white">White</button>
+        </div>
+
+        <h2>Captures</h2>
+        <div class="edit">
+            <div>
+                <div>
+                    <p>Black:</p>
+                    <button phx-click="change_capture" phx-value-color="black" phx-value-delta="-1">-</button>
+                    <p><%= @state.captures.black%></p>
+                    <button phx-click="change_capture" phx-value-color="black" phx-value-delta="1">+</button>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <p>White:</p>
+                    <button phx-click="change_capture" phx-value-color="white" phx-value-delta="-1">-</button>
+                    <p><%= @state.captures.white%></p>
+                    <button phx-click="change_capture" phx-value-color="white" phx-value-delta="1">+</button>
+                </div>
+            </div>
+        </div>
+
+        <h2>Komi</h2>
+        <div class="edit">
+            <div>
+                <p>Black:</p>
+                <button phx-click="change_komi" phx-value-color="black" phx-value-delta="-0.5">-</button>
+                <p><%= Float.to_string(@state.komi.black, decimals: 1) %></p>
+                <button phx-click="change_komi" phx-value-color="black" phx-value-delta="0.5">+</button>
+            </div>
+            <div>
+                <p>White:</p>
+                <button phx-click="change_komi" phx-value-color="white" phx-value-delta="-0.5">-</button>
+                <p><%= Float.to_string(@state.komi.white, decimals: 1) %></p>
+                <button phx-click="change_komi" phx-value-color="white" phx-value-delta="0.5">+</button>
+            </div>
+        </div>
+
+        <h2>Score</h2>
+        <div class="scores">
+            <div class="score">
+                <div>
+                    <p>Black: </p>
+                    <p><%= @score.black %></p>
+                </div>
+                <div>
+                    <p>White: </p>
+                    <p><%= @score.white %></p>
+                </div>
+            </div>
+            <button phx-click="update_score">Compute score</button>
+        </div>
     </div>
 </div>
 
-<h2>Komi</h2>
-<div class="captures-edit">
-    <p>Black<p>
-    <div>
-        <button phx-click="change_komi" phx-value-color="black" phx-value-delta="-0.5">-</button>
-        <p><%= Float.to_string(@state.komi.black, decimals: 1) %></p>
-        <button phx-click="change_komi" phx-value-color="black" phx-value-delta="0.5">+</button>
-    </div>
-    <p>White<p>
-    <div>
-        <button phx-click="change_komi" phx-value-color="white" phx-value-delta="-0.5">-</button>
-        <p><%= Float.to_string(@state.komi.white, decimals: 1) %></p>
-        <button phx-click="change_komi" phx-value-color="white" phx-value-delta="0.5">+</button>
-    </div>
-</div>
-
-<h2>Board</h2>
-<div>
-    <button phx-click="change_current" phx-value-current="black">Black</button>
-    <button phx-click="change_current" phx-value-current="white">White</button>
-    <div class="board <%= @state.current %>">
-        <%= for {value, index} <- Enum.with_index(@state.positions) do %>
-        <button phx-click="toggle" phx-value-index="<%= index %>" class="<%= value %>"></button>
-        <% end %>
-    </div>
-</div>
-
-<h2>Score</h2>
-<button phx-click="update_score">Compute score</button>
-<div class="score">
-    <div>Black: <%= @score.black %></div>
-    <div>White: <%= @score.white %></div>
-</div>
