@@ -3,11 +3,17 @@ defmodule Korigatachi.State do
 
   defstruct positions: Enum.map(1..81, fn _ -> nil end),
             current: :black,
-            captures: %{black: 0, white: 0}
+            captures: %{black: 0, white: 0},
+            komi: %{black: 0.0, white: 6.5}
 
   def change_capture(%State{captures: captures} = state, color, delta) do
     new_captures = Map.update(captures, color, 0, fn x -> max(0, x + delta) end)
     %{state | captures: new_captures}
+  end
+
+  def change_komi(%State{komi: komi} = state, color, delta) do
+    new_komi = Map.update(komi, color, 0, fn x -> max(0, x + delta) end)
+    %{state | komi: new_komi}
   end
 
   def change_current(state, current) do
@@ -22,13 +28,13 @@ defmodule Korigatachi.State do
     %{state | positions: new_positions}
   end
 
-  def get_score(%State{positions: positions, captures: captures}) do
+  def get_score(%State{positions: positions, captures: captures, komi: komi}) do
     cells = 0..80 |> Enum.filter(fn k -> Enum.at(positions, k) == nil end) |> MapSet.new()
-    score = get_score_cell(positions, cells, captures)
+    score = get_score_cell(positions, cells, captures, komi)
     score
   end
 
-  defp get_score_cell(positions, cells, score) do
+  defp get_score_cell(positions, cells, score, komi) do
     if MapSet.size(cells) == 0 do
       score
     else
@@ -48,8 +54,8 @@ defmodule Korigatachi.State do
                     [:white] -> %{score | white: white_score + num_visited}
                     _ -> score
                   end
-      score_with_komi = %{new_score | white: new_score[:white] +  6.5}
-      get_score_cell(positions, new_cells, score_with_komi)
+      score_with_komi = Map.map(new_score, fn {k, v} -> komi[k] + v end)
+      get_score_cell(positions, new_cells, score_with_komi, komi)
     end
   end
 

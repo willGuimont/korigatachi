@@ -14,6 +14,22 @@
     </div>
 </div>
 
+<h2>Komi</h2>
+<div class="captures-edit">
+    <p>Black<p>
+    <div>
+        <button phx-click="change_komi" phx-value-color="black" phx-value-delta="-0.5">-</button>
+        <p><%= Float.to_string(@state.komi.black, decimals: 1) %></p>
+        <button phx-click="change_komi" phx-value-color="black" phx-value-delta="0.5">+</button>
+    </div>
+    <p>White<p>
+    <div>
+        <button phx-click="change_komi" phx-value-color="white" phx-value-delta="-0.5">-</button>
+        <p><%= Float.to_string(@state.komi.white, decimals: 1) %></p>
+        <button phx-click="change_komi" phx-value-color="white" phx-value-delta="0.5">+</button>
+    </div>
+</div>
+
 <h2>Board</h2>
 <div>
     <button phx-click="change_current" phx-value-current="black">Black</button>

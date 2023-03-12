@@ -18,6 +18,11 @@ defmodule KorigatachiWeb.GameLive do
     {:noreply, assign(socket, game: new_game, state: Game.state(new_game))}
   end
 
+  def handle_event("change_komi", %{"color" => color, "delta" => delta}, %{assigns: assigns} = socket) do
+    new_game = Game.change_komi(assigns.game, String.to_atom(color), String.to_float(delta))
+    {:noreply, assign(socket, game: new_game, state: Game.state(new_game))}
+  end
+
   def handle_event("change_current", %{"current" => current}, %{assigns: assigns} = socket) do
     new_game = Game.change_current(assigns.game, String.to_atom(current))
     {:noreply, assign(socket, game: new_game, state: Game.state(new_game))}
