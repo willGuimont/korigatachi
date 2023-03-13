@@ -1,6 +1,6 @@
 # Korigatachi
 
-Count the score of a Go game from a picture
+Collection of Go tools written in Elixir with the [Phoenix Framework](https://www.phoenixframework.org/)
 
 ## Run
 
