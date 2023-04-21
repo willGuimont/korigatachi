@@ -9,7 +9,7 @@ defmodule Korigatachi.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Korigatachi.Repo,
+      # Korigatachi.Repo,
       # Start the Telemetry supervisor
       KorigatachiWeb.Telemetry,
       # Start the PubSub system
